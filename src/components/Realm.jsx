@@ -44,14 +44,49 @@ const Realm = ()=> {
     
    
 
-    const realmPk= new PublicKey('4yqmqhbUtsptgWe4T2U3Rrypn64TBsBaQimh8mxgitWn');
+    const realmPk= new PublicKey('7cqba2g2cUtpnBWL9ijKnAWUzz5sVDTUV5V9HNTvoGBb');
     //const governancePk= new PublicKey('HSwTfJLsjne4HFCV5DuWfnzkqch24U93nKPT6A5je9tJ');
-    const proposalPk= new PublicKey('9EHGx1iDR5CxPgjA7FQrUGWdumwwsXTQfgtZykj7gWA');
+    const proposalPk= new PublicKey('6D35cWuMsXqhG4yCFujWs7eyGXLUrmBYSaj6gYsC9gCR');
     const govtokenpk= new PublicKey('HSwTfJLsjne4HFCV5DuWfnzkqch24U93nKPT6A5je9tJ');
 
     
 
+  const mynftdata = async () =>{
+
+    const nfts= await getParsedNftAccountsByOwner({
+      publicAddress: publicKey,
+      connection: connection,
+    })
+
+    console.log(nfts)
+
+    const getIsFromCollection = (nft) => {
+      return (
+        nft.data.creators &&
+        nft.mint &&
+       // (nft.data.creators[0].address==='Gef65Ba4tRgQePePyzw78Mv6yUNUbG9XhKeUH2RrvoPR') &&
+        (nft.data.creators.filter(creator => ((creator.address === '9GUZ7fvMxNfDpzSuvoWc8rNUhydQh97ce2YiukxGbV3B') 
+         // creator.verified &&
+         // creator.verified===1
+          )).length > 0) &&
+      // (nft.collection.verified ||
+        //  typeof nft.collection.verified === 'undefined') &&
+        //usedCollectionsPks.includes(nft.collection.mintAddress) &&
+        nft.data.creators?.filter((x) => x.verified).length > 0
+      )
+    }
     
+    const votingNfts = nfts.filter(nft => getIsFromCollection(nft))
+
+    /*const data = Object.keys(votingNfts).map((key) => votingNfts[key])
+    const metadataAccounts = await Promise.all(
+      data.map((x) => deprecated.Metadata.getPDA(x.mint))
+    )*/
+
+    console.log(votingNfts)
+
+
+  } 
 
    const castvote = useCallback( async ()=> { 
          
@@ -218,7 +253,7 @@ const Realm = ()=> {
             nft.data.creators &&
             nft.mint &&
            // (nft.data.creators[0].address==='Gef65Ba4tRgQePePyzw78Mv6yUNUbG9XhKeUH2RrvoPR') &&
-            (nft.data.creators.filter(creator => ((creator.address === '9vCokGVdN8JHaLRvimUXPmwuQMA4vu3fDpkbwggsT35r') 
+            (nft.data.creators.filter(creator => ((creator.address === '9GUZ7fvMxNfDpzSuvoWc8rNUhydQh97ce2YiukxGbV3B') 
              // creator.verified &&
              // creator.verified===1
               )).length > 0) &&
@@ -637,7 +672,7 @@ const Realm = ()=> {
          // await fetchRealm(realm?.owner, realm?.pubkey)
         }
 
-       // handleRegister();
+       //handleRegister();
         
       await sendTransactionsV2({
           connection,
@@ -662,7 +697,15 @@ const Realm = ()=> {
                     VOTE 
                 </span>
             </button>
-
+            <button
+                className="group w-60 m-2 btn animate-pulse disabled:animate-none bg-gradient-to-r from-[#9945FF] to-[#14F195] hover:from-pink-500 hover:to-yellow-500 ... "
+                onClick={mynftdata} disabled={!publicKey}
+            >
+                <span className="block group-disabled:hidden" > 
+                    Mynfts 
+                </span>
+            </button>
+          
             
         </div>
   )

@@ -15,9 +15,10 @@ import {
 } from '@solana/wallet-adapter-wallets';
 
 const WalletContextProvider = ({ children }) => {
-  const network = WalletAdapterNetwork.Devnet;
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-
+  const network = WalletAdapterNetwork.Mainnet;
+  const endpoint = "https://ultra-morning-brook.solana-mainnet.discover.quiknode.pro/2fa7ec9e4bfc8e48b9744069c70a5af22a1a27a3/"
+   //useMemo(() => clusterApiUrl(network), [network]);
+  
   const wallets = useMemo(
     () => [
       new PhantomWalletAdapter(),
