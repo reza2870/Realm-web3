@@ -1,7 +1,7 @@
 import{SignerWalletAdapter} from '@solana/wallet-adapter-base'
 import React , {useEffect,useCallback} from 'react';
 import { useConnection, useWallet} from '@solana/wallet-adapter-react';
-import { getRealms,getRealm, getTokenOwnerRecordsByOwner} from '@solana/spl-governance';
+import { getRealms,getRealm, getTokenOwnerRecordsByOwner, getVoterWeightRecord, getVoterWeightRecordAddress, getTokenOwnerRecord, getAllTokenOwnerRecords} from '@solana/spl-governance';
 //import { BN } from 'bn.js';
 import {Connection, PublicKey, Transaction } from '@solana/web3.js';
 import {Vote, RpcContext, getTokenOwnerRecordForRealm,getAllProposals} from '@solana/spl-governance';
@@ -44,9 +44,9 @@ const Realm = ()=> {
     
    
 
-    const realmPk= new PublicKey('7cqba2g2cUtpnBWL9ijKnAWUzz5sVDTUV5V9HNTvoGBb');
+    const realmPk= new PublicKey('4yqmqhbUtsptgWe4T2U3Rrypn64TBsBaQimh8mxgitWn');
     //const governancePk= new PublicKey('HSwTfJLsjne4HFCV5DuWfnzkqch24U93nKPT6A5je9tJ');
-    const proposalPk= new PublicKey('6D35cWuMsXqhG4yCFujWs7eyGXLUrmBYSaj6gYsC9gCR');
+    const proposalPk= new PublicKey('7cLFT631D3Bkgirf4WsWdGMiR3JYqq5PHRQCA8U6XFmM');
     const govtokenpk= new PublicKey('HSwTfJLsjne4HFCV5DuWfnzkqch24U93nKPT6A5je9tJ');
 
     
@@ -65,7 +65,8 @@ const Realm = ()=> {
         nft.data.creators &&
         nft.mint &&
        // (nft.data.creators[0].address==='Gef65Ba4tRgQePePyzw78Mv6yUNUbG9XhKeUH2RrvoPR') &&
-        (nft.data.creators.filter(creator => ((creator.address === '9GUZ7fvMxNfDpzSuvoWc8rNUhydQh97ce2YiukxGbV3B') 
+       //9GUZ7fvMxNfDpzSuvoWc8rNUhydQh97ce2YiukxGbV3B
+        (nft.data.creators.filter(creator => ((creator.address === '9vCokGVdN8JHaLRvimUXPmwuQMA4vu3fDpkbwggsT35r') 
          // creator.verified &&
          // creator.verified===1
           )).length > 0) &&
@@ -119,6 +120,7 @@ const Realm = ()=> {
           const governancetokenowner= await getProposal(connection,proposalPk).then(res => {return res.owner})
           const governance = await getGovernance (connection,governancePk)
           const tokOwnerRecord = await getTokenOwnerRecordAddress(programId,realmPk,communitymintpk,publicKey)
+          console.log(tokOwnerRecord)
           console.log(governance)
           console.log(governancetokenmint.toBase58())
           console.log(governancePk.toBase58())
@@ -253,7 +255,7 @@ const Realm = ()=> {
             nft.data.creators &&
             nft.mint &&
            // (nft.data.creators[0].address==='Gef65Ba4tRgQePePyzw78Mv6yUNUbG9XhKeUH2RrvoPR') &&
-            (nft.data.creators.filter(creator => ((creator.address === '9GUZ7fvMxNfDpzSuvoWc8rNUhydQh97ce2YiukxGbV3B') 
+            (nft.data.creators.filter(creator => ((creator.address === '7iD3qXZzJJX4SkMMkgun2mgoCzDE7aEgAajagDJTbF3v') 
              // creator.verified &&
              // creator.verified===1
               )).length > 0) &&
@@ -609,6 +611,12 @@ const Realm = ()=> {
        ? tokenRecords[publicKey.toBase58()]
         : null
         console.log(tokenRecords)
+       const aa= await getAllTokenOwnerRecords(connection,nftptogramid,realmPk)
+       console.log(aa) 
+      const checkregister1= await getTokenOwnerRecordAddress(nftptogramid,realmPk,communitymintpk,publicKey)
+      console.log(checkregister1)
+       //const checkregister= await getTokenOwnerRecordForRealm(connection,programId,realmPk,governancetokenmint ,publicKey)
+      //  console.log(checkregister)
       
         const handleRegister = async () => {
           const instructionsr = []
@@ -650,9 +658,10 @@ const Realm = ()=> {
             await withCreateTokenOwnerRecord(
               instructionsr,
               programId,
+              3,
               realmPk,
               publicKey,
-              communitymintpk,
+              governancetokenmint,
               publicKey
             )
           
@@ -672,7 +681,7 @@ const Realm = ()=> {
          // await fetchRealm(realm?.owner, realm?.pubkey)
         }
 
-       //handleRegister();
+      // handleRegister();
         
       await sendTransactionsV2({
           connection,

@@ -16,7 +16,7 @@ import {
 
 const WalletContextProvider = ({ children }) => {
   const network = WalletAdapterNetwork.Mainnet;
-  const endpoint = "https://ultra-morning-brook.solana-mainnet.discover.quiknode.pro/2fa7ec9e4bfc8e48b9744069c70a5af22a1a27a3/"
+  const endpoint = "https://ultra-flashy-violet.solana-devnet.discover.quiknode.pro/f9088cfea17dc13a00d186b7369fdfbb0b1c7ed4/"
    //useMemo(() => clusterApiUrl(network), [network]);
   
   const wallets = useMemo(
