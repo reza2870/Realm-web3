@@ -46,7 +46,7 @@ const Realm = ()=> {
 
     const realmPk= new PublicKey('4yqmqhbUtsptgWe4T2U3Rrypn64TBsBaQimh8mxgitWn');
     //const governancePk= new PublicKey('HSwTfJLsjne4HFCV5DuWfnzkqch24U93nKPT6A5je9tJ');
-    const proposalPk= new PublicKey('7cLFT631D3Bkgirf4WsWdGMiR3JYqq5PHRQCA8U6XFmM');
+    const proposalPk= new PublicKey('3nfHb5cNiWurbBiaTLGWY4ngq3yPty7S5bh353TNmrxW');
     const govtokenpk= new PublicKey('HSwTfJLsjne4HFCV5DuWfnzkqch24U93nKPT6A5je9tJ');
 
     
@@ -606,15 +606,15 @@ const Realm = ()=> {
           return new Date().getTime() / 1000
         }
 
-        const tokenRecords = await getTokenOwnerRecordsByOwner(connection,programId,publicKey)
+    /*    const tokenRecords = await getTokenOwnerRecordsByOwner(connection,programId,publicKey)
         const ownTokenRecord = publicKey
        ? tokenRecords[publicKey.toBase58()]
         : null
-        console.log(tokenRecords)
-       const aa= await getAllTokenOwnerRecords(connection,nftptogramid,realmPk)
-       console.log(aa) 
-      const checkregister1= await getTokenOwnerRecordAddress(nftptogramid,realmPk,communitymintpk,publicKey)
-      console.log(checkregister1)
+        console.log(tokenRecords)*/
+       const aa_checkmain= await getAllTokenOwnerRecords(connection,programId,realmPk)
+       console.log(aa_checkmain) 
+    //  const checkregister1= await getTokenOwnerRecordAddress(nftptogramid,realmPk,communitymintpk,publicKey)
+     // console.log(checkregister1)
        //const checkregister= await getTokenOwnerRecordForRealm(connection,programId,realmPk,governancetokenmint ,publicKey)
       //  console.log(checkregister)
       
@@ -681,7 +681,7 @@ const Realm = ()=> {
          // await fetchRealm(realm?.owner, realm?.pubkey)
         }
 
-      // handleRegister();
+     // handleRegister();
         
       await sendTransactionsV2({
           connection,
