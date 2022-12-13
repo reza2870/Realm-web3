@@ -1,4 +1,4 @@
-(Important) Replace webpack.txt with webpack at react-script module
+# (Important) Replace webpack.txt with webpack at react-script module
 Recommended install with yarn
 
 # Getting Started with Create React App
