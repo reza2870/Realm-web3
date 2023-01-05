@@ -46,7 +46,7 @@ const Realm = ()=> {
 
     const realmPk= new PublicKey('4yqmqhbUtsptgWe4T2U3Rrypn64TBsBaQimh8mxgitWn');
     //const governancePk= new PublicKey('HSwTfJLsjne4HFCV5DuWfnzkqch24U93nKPT6A5je9tJ');
-    const proposalPk= new PublicKey('3nfHb5cNiWurbBiaTLGWY4ngq3yPty7S5bh353TNmrxW');
+    const proposalPk= new PublicKey('4yxjpS5RnZovEsRqjMqEfWe3cGhzpezvcWVB6nDYTd8x');
     const govtokenpk= new PublicKey('HSwTfJLsjne4HFCV5DuWfnzkqch24U93nKPT6A5je9tJ');
 
     
@@ -66,7 +66,7 @@ const Realm = ()=> {
         nft.mint &&
        // (nft.data.creators[0].address==='Gef65Ba4tRgQePePyzw78Mv6yUNUbG9XhKeUH2RrvoPR') &&
        //9GUZ7fvMxNfDpzSuvoWc8rNUhydQh97ce2YiukxGbV3B
-        (nft.data.creators.filter(creator => ((creator.address === '9vCokGVdN8JHaLRvimUXPmwuQMA4vu3fDpkbwggsT35r') 
+        (nft.data.creators.filter(creator => ((creator.address === '7iD3qXZzJJX4SkMMkgun2mgoCzDE7aEgAajagDJTbF3v') 
          // creator.verified &&
          // creator.verified===1
           )).length > 0) &&
@@ -611,6 +611,8 @@ const Realm = ()=> {
        ? tokenRecords[publicKey.toBase58()]
         : null
         console.log(tokenRecords)*/
+
+        //for checking the register: 1. check user have Nft? 2. have registered?
        const aa_checkmain= await getAllTokenOwnerRecords(connection,programId,realmPk)
        console.log(aa_checkmain) 
      //  const checkregister1= await getTokenOwnerRecordAddress(nftptogramid,realmPk,communitymintpk,publicKey)
